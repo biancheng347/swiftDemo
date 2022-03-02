@@ -40,7 +40,7 @@ fileprivate extension FoodCell {
             $0.backgroundColor = .clear
             $0.textColor = .black
             $0.font = UIFont.systemFont(ofSize: 14.rpx)
-        }.make(self) {
+        }.make(self.contentView) {
             $0.edges.equalTo(self)
         }
     }
@@ -50,7 +50,7 @@ fileprivate extension FoodCell {
             $0.backgroundColor = .clear
             $0.setTitle("delete", for: .normal)
             $0.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
-        }.make(self) {
+        }.make(self.contentView) {
             $0.top.right.equalTo(self)
             $0.width.equalTo(50.rpx)
             $0.height.equalTo(30.rpx)
