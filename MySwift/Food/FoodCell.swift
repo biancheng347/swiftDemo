@@ -5,31 +5,31 @@ class FoodCell: BaseCVCell {
     fileprivate lazy var titleLabel = lazyTitleLabel()
     fileprivate lazy var deleteButton = lazyDeleteButton()
     
-    fileprivate weak var modelData: FoodModel?
+    fileprivate weak var model: FoodModel?
     
     override func cell(model: ItemTypeProtocol) {
-        (model as? ItemTypeModel<FoodModel>).map(foodCell(model:))
+        (model as? ItemTypeModel<FoodModel>).map(\.data).map(myCell(model:))
     }
     
     override func cell(didSelect: IndexPath, model: ItemTypeProtocol) {
-        (model as? ItemTypeModel<FoodModel>).map(foodCell(didSelect:))
+        (model as? ItemTypeModel<FoodModel>).map(\.data).map(myCell(didSelect:))
     }
 }
 
 fileprivate extension FoodCell {
-    func foodCell(model: ItemTypeModel<FoodModel>) {
-        modelData = model.data
+    func myCell(model: FoodModel) {
+        self.model = model
         titleLabel.text = model.data.title
     }
     
-    func foodCell(didSelect: ItemTypeModel<FoodModel>) {
+    func myCell(didSelect: FoodModel) {
         viewCacheVC?.navigationController?.pushViewController(FoodVC(), animated: true)
     }
 }
 
 fileprivate extension FoodCell {
     @objc func deleteAction() {
-        guard let model = modelData else { return }
+        guard let model = model else { return }
         weakView(fetch: FoodView.self)?.vm.delete(model: model)
     }
 }
